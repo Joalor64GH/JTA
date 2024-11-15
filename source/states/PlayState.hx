@@ -19,7 +19,7 @@ class PlayState extends FlxState {
 
 		SaveData.init();
 
-		add(new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE)).scrollFactor.set();
+		add(new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE).scrollFactor.set());
 
 		map = new FlxTilemap();
 		map.loadMapFromCSV(Paths.csv("levels/test_map"), Paths.image('tilemap_1'), 16, 16);
