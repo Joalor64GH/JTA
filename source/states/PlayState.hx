@@ -50,6 +50,17 @@ class PlayState extends FlxState {
 		player.velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
 		if (player.velocity.x != 0)
 			player.flipX = player.velocity.x < 0;
+
+		if (FlxG.keys.anyPressed([UP, W]))
+			player.velocity.y = -100;
+		else if (FlxG.keys.anyPressed([DOWN, S]))
+			player.velocity.y = 100;
+		else
+			player.velocity.y = 0;
+
+		// just in case
+		if (FlxG.keys.justPressed.SPACE)
+			trace('player position: ${player.x}, ${player.y}');
 		
 		/*
 		if (jumping && !Input.justPressed('up'))
