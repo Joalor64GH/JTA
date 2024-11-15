@@ -2,6 +2,7 @@ package backend;
 
 using haxe.io.Path;
 
+@:keep
 class Paths {
 	inline public static final DEFAULT_FOLDER:String = 'assets';
 
@@ -16,6 +17,9 @@ class Paths {
 			return getPath(folder, file);
 		return getPath(null, file);
 	}
+
+	inline static public function exists(asset:String)
+		return FileAssets.exists(asset);
 
 	inline static public function txt(key:String)
 		return file('data/$key.txt');
@@ -54,3 +58,5 @@ class Paths {
 		return path;
 	}
 }
+
+typedef FileAssets = #if sys FileSystem; #else openfl.utils.Assets; #end
