@@ -4,7 +4,6 @@ package backend;
     public var points:Int = 0;
     public var coins:Int = 0;
     public var framerate:Int = 60;
-	public var antialiasing:Bool = true;
 	public var fpsCounter:Bool = true;
 	#if desktop
 	public var fullscreen:Bool = false;

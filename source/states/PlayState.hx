@@ -32,7 +32,7 @@ class PlayState extends FlxState {
 		text.screenCenter();
 		add(text);
 
-		player = new Player(100, 0);
+		player = new Player(47.5, 208);
 		player.maxVelocity.y = 300;
 		player.acceleration.y = 900;
 		add(player);
@@ -54,7 +54,6 @@ class PlayState extends FlxState {
 		// just in case
 		if (FlxG.keys.justPressed.SPACE)
 			trace('player position: ${player.x}, ${player.y}');
-		
 		
 		if (jumping && !Input.justPressed('up'))
             jumping = false;

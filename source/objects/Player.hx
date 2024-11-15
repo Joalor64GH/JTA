@@ -1,6 +1,6 @@
 package objects;
 
-class Player extends Sprite {
+class Player extends FlxSprite {
 	public var direction:Vector = new Vector(0, 0);
 	public var speed:Vector = new Vector(0, 0);
 
