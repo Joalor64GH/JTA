@@ -17,7 +17,17 @@ class PlayState extends FlxState {
 	override public function create() {
 		super.create();
 
+		instance = this;
+
+		System.gc();
+
 		SaveData.init();
+
+		camHUD = new FlxCamera();
+		camHUD.bgColor = 0;
+		FlxG.cameras.add(camHUD, false);
+
+		FlxG.camera.zoom = 2.95;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 		bg.scrollFactor.set();
@@ -25,6 +35,7 @@ class PlayState extends FlxState {
 
 		map = new FlxTilemap();
 		map.loadMapFromCSV(Paths.csv('levels/test-map'), Paths.image('tiles'), 16, 16);
+		map.screenCenter();
 		add(map);
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
@@ -32,19 +43,17 @@ class PlayState extends FlxState {
 		text.screenCenter();
 		add(text);
 
-		player = new Player(47.5, 208);
+		player = new Player(FlxG.width / 2, FlxG.height / 2);
 		player.maxVelocity.y = 300;
 		player.acceleration.y = 900;
 		add(player);
-
-		FlxG.camera.zoom = 2.95;
 	}
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
 		FlxG.collide(map, player);
-		FlxG.camera.follow(player, LOCKON);
+		FlxG.camera.follow(player, LOCKON, 0.9);
 
 		player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
 		player.velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
@@ -54,22 +63,20 @@ class PlayState extends FlxState {
 		// just in case
 		if (FlxG.keys.justPressed.SPACE)
 			trace('player position: ${player.x}, ${player.y}');
-		
+
 		if (jumping && !Input.justPressed('up'))
-            jumping = false;
+			jumping = false;
 
-        if (player.isTouching(DOWN) && !jumping)
-            jumpTimer = 0;
+		if (player.isTouching(DOWN) && !jumping)
+			jumpTimer = 0;
 
-        if (jumpTimer >= 0 && Input.justPressed('up'))
-        {
-            jumping = true;
-            jumpTimer += elapsed;
-        }
-        else
-            jumpTimer = -1;
+		if (jumpTimer >= 0 && Input.justPressed('up')) {
+			jumping = true;
+			jumpTimer += elapsed;
+		} else
+			jumpTimer = -1;
 
-        if (jumpTimer > 0 && jumpTimer < 0.25)
-            player.velocity.y = -300;
+		if (jumpTimer > 0 && jumpTimer < 0.25)
+			player.velocity.y = -300;
 	}
 }
