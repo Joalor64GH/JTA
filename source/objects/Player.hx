@@ -9,9 +9,9 @@ class Player extends FlxSprite {
 
 		loadGraphic(Paths.image('player'), true, 16, 16);
 
-        animation.add("idle", [0], 1);
-        animation.add("walk", [0, 1, 0, 2], 12);
-        animation.play("idle");
+		animation.add("idle", [0], 1);
+		animation.add("walk", [1, 0, 2, 0], 12);
+		animation.play("idle");
 	}
 
 	override public function update(elapsed:Float) {

@@ -22,19 +22,16 @@ class Paths {
 		return FileAssets.exists(asset);
 
 	inline static public function txt(key:String)
-		return file('data/$key.txt');
-
-	inline static public function xml(key:String)
-		return file('data/$key.xml');
+		return file('$key.txt');
 
 	inline static public function json(key:String)
-		return file('data/$key.json');
+		return file('$key.json');
 
-	inline static public function ogmo(key:String)
-		return file('data/$key.ogmo');
+	inline static public function csv(key:String)
+		return file('$key.csv');
 
 	inline static public function hxs(key:String)
-		return file('data/$key.hxs');
+		return file('$key.hxs');
 
 	inline static public function sound(key:String)
 		return file('sounds/$key.ogg');

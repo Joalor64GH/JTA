@@ -1,14 +1,16 @@
 package states;
 
-import flixel.addons.editors.ogmo.FlxOgmo3Loader;
+import flixel.tile.FlxTilemap;
 
 class PlayState extends FlxState {
 	public static var instance:PlayState = null;
 
+	var map:FlxTilemap;
+
 	var player:Player;
 
 	var jumpTimer:Float = 0;
-    var jumping:Bool = false;
+	var jumping:Bool = false;
 
 	var camHUD:FlxCamera;
 
@@ -17,13 +19,20 @@ class PlayState extends FlxState {
 
 		SaveData.init();
 
+		add(new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE)).scrollFactor.set();
+
+		map = new FlxTilemap();
+		map.loadMapFromCSV(Paths.csv("levels/test_map"), Paths.image('tilemap_1'), 16, 16);
+		add(map);
+
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
+		text.color = FlxColor.BLACK;
 		text.screenCenter();
 		add(text);
 
 		player = new Player(FlxG.width / 2, FlxG.height / 2);
 		player.maxVelocity.y = 300;
-        player.acceleration.y = 900;
+		player.acceleration.y = 900;
 		add(player);
 
 		FlxG.camera.zoom = 2.25;
@@ -32,18 +41,29 @@ class PlayState extends FlxState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
+		FlxG.collide(map, player);
 		FlxG.camera.follow(player, LOCKON);
 
 		player.animation.play((player.velocity.x != 0) ? "walk" : "idle");
 		player.velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
 		if (player.velocity.x != 0)
-            player.flipX = player.velocity.x < 0;
+			player.flipX = player.velocity.x < 0;
 
-		if (FlxG.keys.anyPressed([UP, W]))
-			player.velocity.y = -100;
-		else if (FlxG.keys.anyPressed([DOWN, S]))
-			player.velocity.y = 100;
-		else
-			player.velocity.y = 0;
+		if (jumping && !Input.justPressed('up'))
+            jumping = false;
+
+        if (player.isTouching(DOWN) && !jumping)
+            jumpTimer = 0;
+
+        if (jumpTimer >= 0 && Input.justPressed('up'))
+        {
+            jumping = true;
+            jumpTimer += elapsed;
+        }
+        else
+            jumpTimer = -1;
+
+        if (jumpTimer > 0 && jumpTimer < 0.25)
+            player.velocity.y = -300;
 	}
 }

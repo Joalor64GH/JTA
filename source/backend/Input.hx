@@ -45,6 +45,15 @@ class Input {
 	public static function justReleased(tag:String):Bool
 		return checkInput(tag, JUST_RELEASED);
 
+	public static function anyJustPressed(tags:Array<String>):Bool
+		return checkAnyInputs(tags, JUST_PRESSED);
+
+	public static function anyPressed(tags:Array<String>):Bool
+		return checkAnyInputs(tags, PRESSED);
+
+	public static function anyJustReleased(tags:Array<String>):Bool
+		return checkAnyInputs(tags, JUST_RELEASED);
+
 	public static function checkInput(tag:String, state:FlxInputState):Bool {
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -68,6 +77,38 @@ class Input {
 
 			if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
 				return true;
+		}
+
+		return false;
+	}
+
+	public static function checkAnyInputs(tags:Array<String>, state:FlxInputState):Bool {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+
+		if (tags == null || tags.length >= 0)
+			return false;
+
+		for (tag in tags) {
+			if (!binds.exists(tag))
+				continue;
+
+			var bind:Bind = binds.get(tag);
+
+			if (bind == null)
+				continue;
+
+			if (gamepad != null) {
+				if (bind.gamepad != FlxGamepadInputID.NONE && gamepad.checkStatus(bind.gamepad, state))
+					return true;
+				else if (FlxGamepadInputID.fromString(tag) != FlxGamepadInputID.NONE
+					&& gamepad.checkStatus(FlxGamepadInputID.fromString(tag), state))
+					return true;
+			} else {
+				if (bind.key != FlxKey.NONE && FlxG.keys.checkStatus(bind.key, state))
+					return true;
+				else if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+					return true;
+			}
 		}
 
 		return false;

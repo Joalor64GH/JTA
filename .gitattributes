@@ -1,4 +1,2 @@
 * text=auto
-
 *.hxs linguist-language=Haxe
-*.ogmo linguist-language=Json
