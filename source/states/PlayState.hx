@@ -36,15 +36,12 @@ class PlayState extends FlxState {
 
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/test-background'), Paths.image('tiles_bg'), 16, 16);
-		background.scrollFactor.x = background.scrollFactor.y = .5;
 		add(background);
 
 		map = new FlxTilemap();
 		map.loadMapFromCSV(Paths.csv('levels/test-map'), Paths.image('tiles'), 16, 16);
 		map.screenCenter();
 		add(map);
-
-		FlxG.worldBounds.set(0, 0, map.width, map.height);
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
 		text.color = FlxColor.BLACK;
