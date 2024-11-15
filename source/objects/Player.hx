@@ -1,14 +1,17 @@
 package objects;
 
-import objects.Vector;
-
 class Player extends FlxSprite {
 	public var direction:Vector = new Vector(0, 0);
 	public var speed:Vector = new Vector(0, 0);
 
 	public function new(x:Float = 0, y:Float = 0) {
 		super(x, y);
-		makeGraphic(50, 75, FlxColor.GREEN);
+
+		loadGraphic(Paths.image('player'), true, 16, 16);
+
+        animation.add("idle", [0], 1);
+        animation.add("walk", [0, 1, 0, 2], 12);
+        animation.play("idle");
 	}
 
 	override public function update(elapsed:Float) {

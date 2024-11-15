@@ -4,7 +4,7 @@ import debug.FPS;
 
 class Main extends openfl.display.Sprite {
 	public final config:Dynamic = {
-		gameDimensions: [1280, 720],
+		gameDimensions: [720, 720],
 		framerate: 60,
 		initialState: PlayState,
 		skipSplash: false,
