@@ -32,12 +32,12 @@ class PlayState extends FlxState {
 		text.screenCenter();
 		add(text);
 
-		player = new Player(FlxG.width / 2, FlxG.height / 2);
+		player = new Player(100, 0);
 		player.maxVelocity.y = 300;
 		player.acceleration.y = 900;
 		add(player);
 
-		FlxG.camera.zoom = 2.25;
+		FlxG.camera.zoom = 2.95;
 	}
 
 	override public function update(elapsed:Float) {
@@ -51,18 +51,11 @@ class PlayState extends FlxState {
 		if (player.velocity.x != 0)
 			player.flipX = player.velocity.x < 0;
 
-		if (FlxG.keys.anyPressed([UP, W]))
-			player.velocity.y = -100;
-		else if (FlxG.keys.anyPressed([DOWN, S]))
-			player.velocity.y = 100;
-		else
-			player.velocity.y = 0;
-
 		// just in case
 		if (FlxG.keys.justPressed.SPACE)
 			trace('player position: ${player.x}, ${player.y}');
 		
-		/*
+		
 		if (jumping && !Input.justPressed('up'))
             jumping = false;
 
@@ -79,6 +72,5 @@ class PlayState extends FlxState {
 
         if (jumpTimer > 0 && jumpTimer < 0.25)
             player.velocity.y = -300;
-		*/
 	}
 }
