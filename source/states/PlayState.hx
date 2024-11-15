@@ -50,7 +50,8 @@ class PlayState extends FlxState {
 		player.velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
 		if (player.velocity.x != 0)
 			player.flipX = player.velocity.x < 0;
-
+		
+		/*
 		if (jumping && !Input.justPressed('up'))
             jumping = false;
 
@@ -67,5 +68,6 @@ class PlayState extends FlxState {
 
         if (jumpTimer > 0 && jumpTimer < 0.25)
             player.velocity.y = -300;
+		*/
 	}
 }
