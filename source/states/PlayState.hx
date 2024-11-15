@@ -19,10 +19,12 @@ class PlayState extends FlxState {
 
 		SaveData.init();
 
-		add(new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE).scrollFactor.set());
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		bg.scrollFactor.set();
+		add(bg);
 
 		map = new FlxTilemap();
-		map.loadMapFromCSV(Paths.csv("levels/test_map"), Paths.image('tilemap_1'), 16, 16);
+		map.loadMapFromCSV(Paths.csv('levels/test_map'), Paths.image('tilemap_1'), 16, 16);
 		add(map);
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
