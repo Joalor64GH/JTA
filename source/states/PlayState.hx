@@ -24,7 +24,7 @@ class PlayState extends FlxState {
 		add(bg);
 
 		map = new FlxTilemap();
-		map.loadMapFromCSV(Paths.csv('levels/test-map'), Paths.image('tiles'), 16, 16);
+		map.loadMapFromCSV('assets/levels/test-map.csv', 'assets/images/tiles.png', 16, 16);
 		add(map);
 
 		var text = new FlxText(0, 0, 0, "Hello World", 64);
