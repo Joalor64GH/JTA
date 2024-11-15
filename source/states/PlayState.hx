@@ -34,8 +34,10 @@ class PlayState extends FlxState {
 		bg.scrollFactor.set();
 		add(bg);
 
-		add(background.loadMapFromCSV(Paths.csv('levels/test-background'), Paths.image('tiles_bg'), 16, 16));
+		background = new FlxTilemap();
+		background.loadMapFromCSV(Paths.csv('levels/test-background'), Paths.image('tiles_bg'), 16, 16);
 		background.scrollFactor.x = background.scrollFactor.y = .5;
+		add(background);
 
 		map = new FlxTilemap();
 		map.loadMapFromCSV(Paths.csv('levels/test-map'), Paths.image('tiles'), 16, 16);
