@@ -69,7 +69,7 @@ class PlayState extends FlxState {
 		if (Input.pressed('run')) {
 			if (Input.pressed('left'))
 				player.velocity.x -= 50;
-			else if Input.pressed('right')
+			else if (Input.pressed('right'))
 				player.velocity.x += 50;
 		}
 
