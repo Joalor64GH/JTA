@@ -30,6 +30,10 @@ class PlayState extends FlxState {
 
 		FlxG.camera.zoom = 2.95;
 
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		bg.scrollFactor.set();
+		add(bg);
+
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/test-background'), Paths.image('tiles_bg'), 16, 16);
 		background.screenCenter();
