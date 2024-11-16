@@ -61,13 +61,17 @@ class PlayState extends FlxState {
 		FlxG.collide(map, player);
 		FlxG.camera.follow(player, LOCKON, 0.9);
 
-		player.animation.play((player.velocity.y != 0 && jumpTimer > 0) ? "jump" : (player.velocity.x != 0) ? "walk" : "idle");
+		player.animation.play((player.velocity.y != 0) ? "jump" : (player.velocity.x != 0 && !jumping) ? "walk" : "idle");
 		player.velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
 		if (player.velocity.x != 0)
 			player.flipX = player.velocity.x < 0;
 
-		if (Input.pressed('run') && (Input.pressed('left') || Input.pressed('right')))
-			player.velocity.x += 50;			
+		if (Input.pressed('run')) {
+			if (Input.pressed('left'))
+				player.velocity.x -= 50;
+			else if Input.pressed('right')
+				player.velocity.x += 50;
+		}
 
 		// just in case
 		if (FlxG.keys.justPressed.SPACE)
