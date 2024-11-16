@@ -36,7 +36,7 @@ class PlayState extends FlxState {
 
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/test-background'), Paths.image('tiles_bg'), 16, 16);
-		background.scrollFactor.set(-5, 0);
+		background.screenCenter();
 		add(background);
 
 		map = new FlxTilemap();
@@ -61,7 +61,7 @@ class PlayState extends FlxState {
 		FlxG.collide(map, player);
 		FlxG.camera.follow(player, LOCKON, 0.9);
 
-		player.animation.play((player.velocity.y != 0) ? "jump" : (player.velocity.x != 0) ? "walk" : "idle");
+		player.animation.play((player.velocity.y != 0 && jumping) ? "jump" : (player.velocity.x != 0) ? "walk" : "idle");
 		player.velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
 		if (player.velocity.x != 0)
 			player.flipX = player.velocity.x < 0;
